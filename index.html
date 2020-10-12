@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="
+" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>GitHub Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+      $("#tablerepos").hide();})
+    </script>
+    <script>
+      var obj;
+      function checkDrink() {
+      console.log(obj);
+      }
+
+      $(document).ready(function(){
+        $("#senddata").click(function(){
+          $("#tablerepos").empty();
+          $.getJSON(("https://api.github.com/users/") + $("#usr").val() + "/repos", function JSONRecibido(json){
+            obj = json;
+            var len = obj.length;
+            var i;
+            $("#tablerepos").append("<tr><th>Repo Name</th><th>Description</th><th>Followers</th></tr>");
+            for (i = 0; i < len; i++){
+              $("#tablerepos").append((" <tr><td>" + obj[i].name + "</td><td>" + obj[i].description + "</td><td>" + obj[i].watchers + "</td></tr>"));
+            }
+          });
+          $("#tablerepos").show();
+        });
+      });
+
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>GitHub Data</h2>
+      <p>To know some information about your GitHub profile, please enter your username:</p>
+      <br>
+      <form class="form-inline" method="get" id="input">
+        <div class="form-group">
+          <label for="usr">Username:</label>
+          <input type="text" class="form-control" id="usr" value="guillemmontejo">
+        </div>
+        <button class="btn btn-default" id="senddata">Show information</button>
+      </form>
+    </div>
+
+    <table class= "table table-striped" style="width:90%" id="tablerepos">
+      <tr><th>Repo Name</th><th>Description</th><th>Followers</th></tr>
+    </table>
+
+  </body>
+</html>
