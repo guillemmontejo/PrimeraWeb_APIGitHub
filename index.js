@@ -1,12 +1,11 @@
 var obj;
 function checkDrink() {
-console.log(obj);
+  console.log(obj);
 }
-
 $(document).ready(function(){
   $("#senddata").click(function(){
     $("#tablerepos").empty();
-    $.getJSON(("https://api.github.com/users/") + $("#usr").val() + "/repos", function JSONRecibido(json)
+    $.get("https://api.github.com/users/" + $("#usr").val() + "/repos", function JSONRecibido(json)
     {
       obj = json;
       var len = obj.length;
